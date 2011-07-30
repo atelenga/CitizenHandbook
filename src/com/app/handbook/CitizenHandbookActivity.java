@@ -2,6 +2,9 @@ package com.app.handbook;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.ContextWrapper;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Bundle;
 import android.util.Log;
@@ -21,14 +24,6 @@ public class CitizenHandbookActivity extends Activity {
         
         checkIsAddressSet();
         set_aboutButtonClickListener();
-        try
-        {
-            app_ver = this.getPackageManager().getPackageInfo(this.getPackageName(), 0).versionName;
-        }
-        catch (NameNotFoundException e)
-        {
-            Log.v("CitizenHandbook", e.getMessage());
-        }        
         
         Log.d("CitizenHandbook", "Main view started");
         
@@ -41,23 +36,22 @@ public class CitizenHandbookActivity extends Activity {
 		Button aboutButton = (Button)findViewById(R.id.button_About_Show);
 	    aboutButton.setOnClickListener(new View.OnClickListener() {
 	    	public void onClick(View v) {
-	    		//setContentView(R.layout.about);
+	    		
 	    		final Dialog dialog = new Dialog(CitizenHandbookActivity.this);
 	            dialog.setContentView(R.layout.about);
 	            dialog.setTitle(R.string.about);
 	            	             
-	            //TextView version_number_string= (TextView)findViewById(R.id.textViewVersion); 
-	            //version_number_string.setText(app_ver);
-	            
+	            //displayVersionName();
+	            	            
 	            Button button = (Button) dialog.findViewById(R.id.button_Close);
                 button.setOnClickListener(new View.OnClickListener() {
                 	public void onClick(View v) {
                 		dialog.dismiss();
                     }
                 });
-                //now that the dialog is set up, it's time to show it    
                 dialog.show();
-	    		Log.d("CitizenHandbook", "About view showed");
+	    		
+                Log.d("CitizenHandbook", "About view showed");
 	    	}
 	    });   
 	}
@@ -69,5 +63,17 @@ public class CitizenHandbookActivity extends Activity {
 		*/
 		return IsAddressSet;
 		
+	}
+	private void displayVersionName() {
+	    String versionName = "";
+	    PackageInfo packageInfo;
+	    try {
+	        packageInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
+	        versionName = "v " + packageInfo.versionName;
+	    } catch (NameNotFoundException e) {
+	        e.printStackTrace();
+	    }
+	    TextView tv = (TextView) findViewById(R.id.textViewVersion);
+	    tv.setText(versionName);
 	}
 }
