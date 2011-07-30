@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="hello">Hello World, TestProjectActivity!</string>
+    <string name="app_name">Электронный справочник гражданина</string>
+    <string name="City">Город</string>
+    <string name="Street">Улица</string>
+    <string name="House_number">Номер дома</string>
+    <string name="Building">Корпус</string>
+    <string name="Send_Request">Оправить запрос</string>
+    <string name="Clear">Очистить</string>
+    <string name="Program_Name">Электронный справочник гражданина</string>
+    <string name="button_Handbook_Show_label">Показать справочник</string>
+    <string name="button_Make_Request_label">Настройка</string>
+    <string name="button_About_Show_label">О программе</string>
+    <string name="author">автор</string>
+    <string name="author_name">Александр Теленьга</string>
+    <string name="button_Close_label">Вернуться на главный экран</string>
+    <string name="about">О программе</string>
+    <string name="version">версия</string>
+    <string name="version_number">%s</string>
+</resources>
+
