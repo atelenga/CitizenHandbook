@@ -17,9 +17,6 @@
     <string name="button_Close_label">Вернуться на главный экран</string>
     <string name="about">О программе</string>
     <string name="version">версия</string>
-    <string name="version_number">%s</string>
-    <string name="copyright" formatted="false">
-    /v%s (r%s), © 2011
-  </string>
+    <string name="version_number">%s</string>   
 </resources>
 

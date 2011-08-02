@@ -11,7 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-
+import android.content.Intent;
 
 public class CitizenHandbookActivity extends Activity {
     boolean IsAddressSet = false;
@@ -24,12 +24,29 @@ public class CitizenHandbookActivity extends Activity {
         
         checkIsAddressSet();
         set_aboutButtonClickListener();
+        set_makeRequestButtonClickListener();
         
         Log.d("CitizenHandbook", "Main view started");
         
     }
 	
 		
+	private void set_makeRequestButtonClickListener() {
+		// Method to show Make request view
+		final Activity parentActivity = this;
+		Button makeRequestButton = (Button)findViewById(R.id.button_Make_Request);
+	    makeRequestButton.setOnClickListener(new View.OnClickListener() {
+	    	public void onClick(View v) {
+	    		
+	    		Intent i = new Intent(parentActivity,MakeRequestActivity.class);	    		
+	    		startActivity(i);	    		
+                Log.d("CitizenHandbook", "Make view showed");
+	    	}
+	    });   
+	
+	}
+
+
 	private void set_aboutButtonClickListener() {
 		// Method to show About view
 			    

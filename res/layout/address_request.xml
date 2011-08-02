@@ -14,8 +14,8 @@
     <TextView android:layout_width="fill_parent" android:layout_height="wrap_content" android:text="@string/Building"></TextView>
     <EditText android:layout_width="match_parent" android:layout_height="wrap_content" android:inputType="number" android:id="@+id/editText_building"></EditText>
     <LinearLayout android:layout_width="match_parent" android:id="@+id/linearLayout1" android:layout_height="wrap_content">
-        <Button android:id="@+id/button_make_request" android:onClick="button_make_request_click"  android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/Send_Request"></Button>
-        <Button android:id="@+id/button_clear" android:onClick="button_clear_click" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/Clear"></Button>
+        <Button android:onClick="button_make_request_click"  android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/Send_Request" android:id="@+id/button_Send_Request"></Button>
+        <Button android:onClick="button_clear_click" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/Clear" android:id="@+id/button_Clear"></Button>
     </LinearLayout>
         
 </LinearLayout>
