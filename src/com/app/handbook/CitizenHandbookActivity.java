@@ -2,30 +2,54 @@ package com.app.handbook;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.ContextWrapper;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Bundle;
+import android.os.Environment;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.content.Intent;
 
+
+import java.io.*;
+
 public class CitizenHandbookActivity extends Activity {
     boolean IsAddressSet = false;
     public String app_ver = "";
 
-	@Override
+    //public File workingDirectory = new File(Environment.getExternalStorageDirectory()+File.separator+"CitizenHandbook");
+    //public File dbfile = getBaseContext().getFileStreamPath(Environment.getExternalStorageDirectory()+File.separator+"CitizenHandbook"+"db.xml");
+
+    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
         
-        checkIsAddressSet();
+        //checkIsAddressSet();
+        
         set_aboutButtonClickListener();
         set_makeRequestButtonClickListener();
         
+        if (!IsAddressSet) {
+        	final Activity parentActivity = this;
+        	final Dialog dialog = new Dialog(CitizenHandbookActivity.this);
+			dialog.setContentView(R.layout.setup);
+			Button button = (Button) dialog.findViewById(R.id.infoCloseButton);
+			button.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {				
+				Intent i = new Intent(parentActivity,MakeRequestActivity.class);	    		
+	    		startActivity(i);	
+				dialog.dismiss();
+                }
+            });
+			dialog.show();			
+        }
+                
         Log.d("CitizenHandbook", "Main view started");
         
     }
@@ -37,7 +61,11 @@ public class CitizenHandbookActivity extends Activity {
 		Button makeRequestButton = (Button)findViewById(R.id.button_Make_Request);
 	    makeRequestButton.setOnClickListener(new View.OnClickListener() {
 	    	public void onClick(View v) {
-	    		
+	    		/*
+	            if (!(workingDirectory.exists())) {
+	            	workingDirectory.mkdirs();
+	            }
+	            */	    		
 	    		Intent i = new Intent(parentActivity,MakeRequestActivity.class);	    		
 	    		startActivity(i);	    		
                 Log.d("CitizenHandbook", "Make view showed");
@@ -51,46 +79,51 @@ public class CitizenHandbookActivity extends Activity {
 		// Method to show About view
 			    
 		Button aboutButton = (Button)findViewById(R.id.button_About_Show);
-	    aboutButton.setOnClickListener(new View.OnClickListener() {
-	    	public void onClick(View v) {
-	    		
-	    		final Dialog dialog = new Dialog(CitizenHandbookActivity.this);
-	            dialog.setContentView(R.layout.about);
-	            dialog.setTitle(R.string.about);
-	            	             
-	            //displayVersionName();
-	            	            
-	            Button button = (Button) dialog.findViewById(R.id.button_Close);
-                button.setOnClickListener(new View.OnClickListener() {
-                	public void onClick(View v) {
+		aboutButton.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+				
+				final Dialog dialog = new Dialog(CitizenHandbookActivity.this);
+				dialog.setContentView(R.layout.about);
+				dialog.setTitle(R.string.about);
+				           	            
+				Button button = (Button) dialog.findViewById(R.id.button_Close);
+				button.setOnClickListener(new View.OnClickListener() {
+				public void onClick(View v) {
                 		dialog.dismiss();
                     }
                 });
-                dialog.show();
+				
+				String versionName = "";
+				/*
+				PackageInfo packageInfo;
+				try {
+					packageInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
+					versionName = "v " + packageInfo.versionName;
+				} catch (NameNotFoundException e) {
+					e.printStackTrace();
+				}
+				
+				*/
+				
+				TextView tv = (TextView) findViewById(R.id.textViewVersion);
+				tv.setText(versionName);
+				
+				dialog.show();
 	    		
                 Log.d("CitizenHandbook", "About view showed");
 	    	}
 	    });   
 	}
+	/*
 	private boolean checkIsAddressSet() {		
-		/*
-		 * Check if we already set address to use
-		 * We check if db.xml exists
-		 *  
-		*/
+		//Check if we already set address to use
+		//We check if db.xml exists
+		
+		IsAddressSet = workingDirectory.mkdirs()&&dbfile.exists();
+				
 		return IsAddressSet;
 		
 	}
-	private void displayVersionName() {
-	    String versionName = "";
-	    PackageInfo packageInfo;
-	    try {
-	        packageInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
-	        versionName = "v " + packageInfo.versionName;
-	    } catch (NameNotFoundException e) {
-	        e.printStackTrace();
-	    }
-	    TextView tv = (TextView) findViewById(R.id.textViewVersion);
-	    tv.setText(versionName);
-	}
+	*/
+	
 }
