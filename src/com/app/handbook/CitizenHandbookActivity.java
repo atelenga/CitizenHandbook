@@ -20,17 +20,35 @@ import java.io.*;
 
 public class CitizenHandbookActivity extends Activity {
     boolean IsAddressSet = false;
-    public String app_ver = "";
+    public String app_ver = "";   
 
-    //public File workingDirectory = new File(Environment.getExternalStorageDirectory()+File.separator+"CitizenHandbook");
-    //public File dbfile = getBaseContext().getFileStreamPath(Environment.getExternalStorageDirectory()+File.separator+"CitizenHandbook"+"db.xml");
+    //public File dbfile = new File(getExternalFilesDir(null), "db.xml");
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
         
-        //checkIsAddressSet();
+        boolean mExternalStorageAvailable = false;
+        boolean mExternalStorageWriteable = false;
+        
+        String state = Environment.getExternalStorageState();
+
+        if (Environment.MEDIA_MOUNTED.equals(state)) {
+            // We can read and write the media
+            mExternalStorageAvailable = mExternalStorageWriteable = true;
+        } else if (Environment.MEDIA_MOUNTED_READ_ONLY.equals(state)) {
+            // We can only read the media
+            mExternalStorageAvailable = true;
+            mExternalStorageWriteable = false;
+        } else {
+            // Something else is wrong. It may be one of many other states, but all we need
+            //  to know is we can neither read nor write
+            mExternalStorageAvailable = mExternalStorageWriteable = false;
+        }
+        
+        //IsAddressSet = checkIsAddressSet();
+        IsAddressSet = true;
         
         set_aboutButtonClickListener();
         set_makeRequestButtonClickListener();
@@ -48,7 +66,8 @@ public class CitizenHandbookActivity extends Activity {
                 }
             });
 			dialog.show();			
-        }
+        }       
+                
                 
         Log.d("CitizenHandbook", "Main view started");
         
@@ -60,12 +79,7 @@ public class CitizenHandbookActivity extends Activity {
 		final Activity parentActivity = this;
 		Button makeRequestButton = (Button)findViewById(R.id.button_Make_Request);
 	    makeRequestButton.setOnClickListener(new View.OnClickListener() {
-	    	public void onClick(View v) {
-	    		/*
-	            if (!(workingDirectory.exists())) {
-	            	workingDirectory.mkdirs();
-	            }
-	            */	    		
+	    	public void onClick(View v) {	    			    		
 	    		Intent i = new Intent(parentActivity,MakeRequestActivity.class);	    		
 	    		startActivity(i);	    		
                 Log.d("CitizenHandbook", "Make view showed");
@@ -119,11 +133,9 @@ public class CitizenHandbookActivity extends Activity {
 		//Check if we already set address to use
 		//We check if db.xml exists
 		
-		IsAddressSet = workingDirectory.mkdirs()&&dbfile.exists();
-				
-		return IsAddressSet;
+		return dbfile.exists();
 		
-	}
-	*/
+	}*/
+	
 	
 }
