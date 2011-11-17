@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.ContextWrapper;
+import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
@@ -20,10 +21,11 @@ import java.io.*;
 
 public class CitizenHandbookActivity extends Activity {
     boolean IsAddressSet = false;
-    public String app_ver = "";   
-
-    //public File dbfile = new File(getExternalFilesDir(null), "db.xml");
-
+    public String app_ver = "";
+    
+    String MY_PREFS = "Handbook";
+    int mode = Activity.MODE_PRIVATE;
+    
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,13 +47,15 @@ public class CitizenHandbookActivity extends Activity {
             // Something else is wrong. It may be one of many other states, but all we need
             //  to know is we can neither read nor write
             mExternalStorageAvailable = mExternalStorageWriteable = false;
-        }
+        }        
         
-        //IsAddressSet = checkIsAddressSet();
-        IsAddressSet = true;
         
+        set_showButtonClickListener();
         set_aboutButtonClickListener();
         set_makeRequestButtonClickListener();
+        /*
+        final File dbfile = new File(getExternalFilesDir(null), "db.xml");
+        IsAddressSet = dbfile.exists();
         
         if (!IsAddressSet) {
         	final Activity parentActivity = this;
@@ -67,13 +71,37 @@ public class CitizenHandbookActivity extends Activity {
             });
 			dialog.show();			
         }       
-                
+        */        
                 
         Log.d("CitizenHandbook", "Main view started");
         
     }
 	
 		
+	private void set_showButtonClickListener() {
+		final Activity parentActivity = this;
+		Button showtButton = (Button)findViewById(R.id.button_Handbook_Show);
+		showtButton.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+				
+				SharedPreferences settings = getSharedPreferences(MY_PREFS, mode);
+		    	String street = settings.getString("Street","");
+		    	String number = settings.getString("Number","");
+		    	String building = settings.getString("Building","");
+		    	
+		    	if (street=="" && number==""){
+		    		
+		    		Intent i = new Intent(parentActivity,MakeRequestActivity.class);	    		
+		    		startActivity(i);
+		    	}
+	    		
+                Log.d("CitizenHandbook", "Handbook view showed");
+	    	}
+	    });   
+		
+	}
+
+
 	private void set_makeRequestButtonClickListener() {
 		// Method to show Make request view
 		final Activity parentActivity = this;
@@ -108,16 +136,14 @@ public class CitizenHandbookActivity extends Activity {
                 });
 				
 				String versionName = "";
-				/*
+				
 				PackageInfo packageInfo;
 				try {
 					packageInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
 					versionName = "v " + packageInfo.versionName;
 				} catch (NameNotFoundException e) {
 					e.printStackTrace();
-				}
-				
-				*/
+				}			
 				
 				TextView tv = (TextView) findViewById(R.id.textViewVersion);
 				tv.setText(versionName);
@@ -127,15 +153,6 @@ public class CitizenHandbookActivity extends Activity {
                 Log.d("CitizenHandbook", "About view showed");
 	    	}
 	    });   
-	}
-	/*
-	private boolean checkIsAddressSet() {		
-		//Check if we already set address to use
-		//We check if db.xml exists
-		
-		return dbfile.exists();
-		
-	}*/
-	
+	}	
 	
 }

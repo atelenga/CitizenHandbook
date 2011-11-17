@@ -6,7 +6,7 @@
     <string name="Street">Улица</string>
     <string name="House_number">Номер дома</string>
     <string name="Building">Корпус</string>
-    <string name="Send_Request">Оправить запрос</string>
+    <string name="Send_Request">Сохранить</string>
     <string name="Clear">Очистить</string>
     <string name="Program_Name">Электронный справочник гражданина</string>
     <string name="button_Handbook_Show_label">Показать справочник</string>
