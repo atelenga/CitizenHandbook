@@ -9,6 +9,9 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ArrayAdapter; 
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.Spinner;
 import android.widget.EditText;
 
@@ -43,9 +46,26 @@ implements AdapterView.OnItemSelectedListener {
     		AdapterSettlements.add(krd_settelements[i]); 
     		}
     	
+    	
+    	
     	EditText streetEdit = (EditText) findViewById(R.id.editText_street);		
 		EditText numberEdit = (EditText) findViewById(R.id.editText_number);		
-		EditText buildingEdit = (EditText) findViewById(R.id.editText_building);
+		final EditText buildingEdit = (EditText) findViewById(R.id.editText_building);
+		
+		CheckBox ChkBx = (CheckBox) findViewById( R.id.checkBoxBuilding );
+		ChkBx.setOnCheckedChangeListener(new OnCheckedChangeListener()
+		{
+		    public void onCheckedChanged(CompoundButton arg0, boolean arg1) {
+		    	 if ( arg1 ){
+		    		buildingEdit.setEnabled(true);
+ 		        }
+		    	 else{
+		    		 buildingEdit.setEnabled(false);
+		    	 }
+
+				
+			}
+		});
 		
 		SharedPreferences settings = getSharedPreferences(MY_PREFS, mode);
     	city = settings.getString("City","");
