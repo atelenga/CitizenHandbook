@@ -6,8 +6,22 @@
   android:layout_height="match_parent">
     <TextView android:layout_width="wrap_content" android:id="@+id/textView3" android:layout_height="wrap_content" android:textAppearance="?android:attr/textAppearanceSmall" android:text="@string/author"></TextView>
     <TextView android:layout_width="wrap_content" android:id="@+id/textView2" android:layout_height="wrap_content" android:textAppearance="?android:attr/textAppearanceMedium" android:text="@string/author_name"></TextView>
-    <TextView android:textAppearance="?android:attr/textAppearanceSmall" android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/textView4" android:text="@string/version"></TextView>
-    <TextView android:textAppearance="?android:attr/textAppearanceMedium" android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/textViewVersion"></TextView>
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/version"
+        android:textAppearance="?android:attr/textAppearanceSmall" >
+</TextView>
+
+    <TextView
+        android:id="@+id/textViewVersion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/version_number"
+        android:textAppearance="?android:attr/textAppearanceMedium" >
+</TextView>
     <Button android:layout_height="wrap_content" android:layout_width="wrap_content" android:id="@+id/button_Close" android:text="@string/button_Close_label"></Button>
     
 </LinearLayout>

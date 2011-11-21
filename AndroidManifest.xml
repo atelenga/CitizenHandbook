@@ -18,6 +18,11 @@
                  <action android:name="android.intent.action.EDIT" />
                  <action android:name="android.intent.action.PICK" />                 
              </intent-filter>                            	 
+        </activity>
+        <activity android:name="ShowHandbookActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+            </intent-filter>
         </activity>                           	
     </application>
 </manifest>

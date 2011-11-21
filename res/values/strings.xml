@@ -17,8 +17,8 @@
     <string name="button_Close_label">Вернуться на главный экран</string>
     <string name="about">О программе</string>
     <string name="version">версия</string>
-    <string name="version_number">%s</string>
-    <string name="setup_dialog_text">Вы запускаете прогамму в первый раз. Сейчас Вам будет предложено настроить её.</string>
+    <string name="version_number">0.1b</string>
+    <string name="setup_dialog_text">Вы запускаете программу в первый раз. Сейчас Вам будет предложено настроить её.</string>
     <string name="infoCloseButton">Закрыть</string>
     <string name="cbBuilding">Корпус</string>   
 </resources>

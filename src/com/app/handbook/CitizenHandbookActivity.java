@@ -2,26 +2,26 @@ package com.app.handbook;
 
 import android.app.Activity;
 import android.app.Dialog;
-import android.content.Context;
-import android.content.ContextWrapper;
+//import android.content.Context;
+//import android.content.ContextWrapper;
 import android.content.SharedPreferences;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
-import android.content.pm.PackageManager.NameNotFoundException;
+//import android.content.pm.PackageInfo;
+//import android.content.pm.PackageManager;
+//import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
+//import android.widget.TextView;
 import android.content.Intent;
 
 
-import java.io.*;
+//import java.io.*;
 
 public class CitizenHandbookActivity extends Activity {
     boolean IsAddressSet = false;
-    public String app_ver = "";
+    public String app_ver = "0.1";
     
     String MY_PREFS = "Handbook";
     int mode = Activity.MODE_PRIVATE;
@@ -84,15 +84,31 @@ public class CitizenHandbookActivity extends Activity {
 		showtButton.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				
-				SharedPreferences settings = getSharedPreferences(MY_PREFS, mode);
-		    	String street = settings.getString("Street","");
-		    	String number = settings.getString("Number","");
-		    	String building = settings.getString("Building","");
+				SharedPreferences settings = getSharedPreferences(MY_PREFS, mode);				
+				String street = settings.getString("Street","");
+		    	String number = settings.getString("Number","");		    	
 		    	
-		    	if (street=="" && number==""){
+		    	if (street=="" || number==""){
+
+		    		//If we start program for the first time	    		
+		        	final Dialog dialog = new Dialog(CitizenHandbookActivity.this);
+					dialog.setContentView(R.layout.setup);
+					Button button = (Button) dialog.findViewById(R.id.infoCloseButton);
+					button.setOnClickListener(new View.OnClickListener() {
+					public void onClick(View v) {				
+						Intent i = new Intent(parentActivity,MakeRequestActivity.class);	    		
+			    		startActivity(i);	
+						dialog.dismiss();
+		                }
+		            });
+					dialog.show();
 		    		
-		    		Intent i = new Intent(parentActivity,MakeRequestActivity.class);	    		
+		    	}
+		    	else {
+		    		
+		    		Intent i = new Intent(parentActivity,ShowHandbookActivity.class);	    		
 		    		startActivity(i);
+		    	
 		    	}
 	    		
                 Log.d("CitizenHandbook", "Handbook view showed");
@@ -134,7 +150,7 @@ public class CitizenHandbookActivity extends Activity {
                 		dialog.dismiss();
                     }
                 });
-				
+				/*
 				String versionName = "";
 				
 				PackageInfo packageInfo;
@@ -146,8 +162,8 @@ public class CitizenHandbookActivity extends Activity {
 				}			
 				
 				TextView tv = (TextView) findViewById(R.id.textViewVersion);
-				tv.setText(versionName);
-				
+				//tv.setText(versionName);
+				tv.setText("0.1");*/
 				dialog.show();
 	    		
                 Log.d("CitizenHandbook", "About view showed");
