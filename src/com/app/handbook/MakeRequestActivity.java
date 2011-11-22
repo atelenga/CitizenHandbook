@@ -59,6 +59,13 @@ implements AdapterView.OnItemSelectedListener {
 		
 		CheckBox chkBx = (CheckBox) findViewById(R.id.checkBoxBuilding);
 		chkBx.setChecked(buildingChecked);
+		if (buildingChecked){
+			buildingEdit.setEnabled(true);
+		}
+		else{
+			buildingEdit.setEnabled(false);
+		}
+		
 		chkBx.setOnCheckedChangeListener(new OnCheckedChangeListener()
 		{
 		    public void onCheckedChanged(CompoundButton arg0, boolean arg1) {
