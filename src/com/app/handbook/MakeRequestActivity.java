@@ -44,35 +44,33 @@ implements AdapterView.OnItemSelectedListener {
     	
     	for (int i = 0; i < lenSettlements; i++) {    		 
     		AdapterSettlements.add(krd_settelements[i]); 
-    		}
-    	
-    	
+    		}   	
     	
     	EditText streetEdit = (EditText) findViewById(R.id.editText_street);		
 		EditText numberEdit = (EditText) findViewById(R.id.editText_number);		
 		final EditText buildingEdit = (EditText) findViewById(R.id.editText_building);
-		
-		CheckBox ChkBx = (CheckBox) findViewById( R.id.checkBoxBuilding );
-		ChkBx.setOnCheckedChangeListener(new OnCheckedChangeListener()
-		{
-		    public void onCheckedChanged(CompoundButton arg0, boolean arg1) {
-		    	 if ( arg1 ){
-		    		buildingEdit.setEnabled(true);
- 		        }
-		    	 else{
-		    		 buildingEdit.setEnabled(false);
-		    	 }
-
-				
-			}
-		});
 		
 		SharedPreferences settings = getSharedPreferences(MY_PREFS, mode);
     	city = settings.getString("City","");
 		String street = settings.getString("Street","");
     	String number = settings.getString("Number","");
     	String building = settings.getString("Building","");
-    	
+    	boolean buildingChecked = settings.getBoolean("IsBuilding", false);
+		
+		CheckBox chkBx = (CheckBox) findViewById(R.id.checkBoxBuilding);
+		chkBx.setChecked(buildingChecked);
+		chkBx.setOnCheckedChangeListener(new OnCheckedChangeListener()
+		{
+		    public void onCheckedChanged(CompoundButton arg0, boolean arg1) {
+		    	 if ( arg1 ){
+		    		buildingEdit.setEnabled(true);		    		
+ 		        }
+		    	 else{
+		    		 buildingEdit.setEnabled(false);
+		    	 }				
+			}
+		});
+		    	
     	int spinnerPos = AdapterSettlements.getPosition(city);
     	
     	spinnerSettlements.setSelection(spinnerPos);
@@ -116,13 +114,15 @@ implements AdapterView.OnItemSelectedListener {
 	    		
 	    		EditText streetEdit = (EditText) findViewById(R.id.editText_street);
 	    		EditText numberEdit = (EditText) findViewById(R.id.editText_number);
-	    		EditText buildingEdit = (EditText) findViewById(R.id.editText_building);	    		
+	    		EditText buildingEdit = (EditText) findViewById(R.id.editText_building);
+	    		CheckBox chkBx = (CheckBox) findViewById(R.id.checkBoxBuilding);
 	    		
 	    		Spinner spinnerSettlements = (Spinner) findViewById(R.id.spinner_city); 
 	    		city = spinnerSettlements.getSelectedItem().toString();
 	    		String street = streetEdit.getText().toString().trim();
 	    	    String number = numberEdit.getText().toString().trim();
 	    	    String building = buildingEdit.getText().toString().trim();
+	    	    boolean buildingChecked = chkBx.isChecked();
 	    	    
 	    	    SharedPreferences settings = getSharedPreferences(MY_PREFS, mode);
 	    	    SharedPreferences.Editor editor = settings.edit();
@@ -130,6 +130,7 @@ implements AdapterView.OnItemSelectedListener {
 	    	    editor.putString("Street", street);
 	    	    editor.putString("Number", number);
 	    	    editor.putString("Building", building);
+	    	    editor.putBoolean("IsBuilding", buildingChecked);
 	    	    editor.commit();  		
 	    		
                 Log.d("CitizenHandbook", "Address fields are saved into shared preferenses");

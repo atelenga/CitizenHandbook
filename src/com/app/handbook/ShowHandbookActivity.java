@@ -30,7 +30,7 @@ public class ShowHandbookActivity extends Activity {
     		searchString = "http://192.168.1.105/search/?q0=" + city + "&q1=" + street + "&q2=" + number;
     	}
     	else {
-        	searchString = "http://192.168.1.105/search/?q0=" + city + "&q1=" + street + "&q2=" + number + "q3=" + building;
+        	searchString = "http://192.168.1.105/search/?q0=" + city + "&q1=" + street + "&q2=" + number + "&q3=" + building;
     	}
     	
         WebView webview = (WebView) findViewById(R.id.webview);
