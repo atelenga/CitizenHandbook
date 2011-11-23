@@ -14,6 +14,7 @@ public class ShowHandbookActivity extends Activity {
 	
     String MY_PREFS = "Handbook";
     String searchString = "";
+    String site = "http://handbook.voland.lolocum/search/"; 
     int mode = Activity.MODE_PRIVATE;   
     
 	public void onCreate(Bundle savedInstanceState) {
@@ -33,9 +34,9 @@ public class ShowHandbookActivity extends Activity {
     	//http://192.168.1.108/search/?q0=&q1=255&q2=&q3=
         
     	if (building=="")
-    		searchString = "http://192.168.1.105/search/?q0=" + city + "&q1=" + street + "&q2=" + number;
+    		searchString = site + "?q0=" + city + "&q1=" + street + "&q2=" + number;
     	else 
-        	searchString = "http://192.168.1.105/search/?q0=" + city + "&q1=" + street + "&q2=" + number + "&q3=" + building;
+        	searchString = site + "?q0=" + city + "&q1=" + street + "&q2=" + number + "&q3=" + building;
     	
     	// Let's display the progress in the activity title bar, like the
     	// browser app does.
@@ -44,8 +45,7 @@ public class ShowHandbookActivity extends Activity {
     	webview.getSettings().setJavaScriptEnabled(true);
     	webview.getSettings().setSupportZoom(true);
     	webview.getSettings().setBuiltInZoomControls(true);
-    	webview.loadUrl(searchString);
-
+    	
     	final Activity activity = this;
     	webview.setWebChromeClient(new WebChromeClient() {
     	  public void onProgressChanged(WebView view, int progress) {
@@ -59,8 +59,9 @@ public class ShowHandbookActivity extends Activity {
     	  public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
     	    Toast.makeText(activity, "Ошибка!" + description, Toast.LENGTH_SHORT).show();
     	  }
-    	}); 	
-        
+    	});     	
+    	
+    	webview.loadUrl(searchString);
         
         Log.d("CitizenHandbook", "Main view started");
         
