@@ -14,7 +14,7 @@ public class ShowHandbookActivity extends Activity {
 	
     String MY_PREFS = "Handbook";
     String searchString = "";
-    String site = "http://handbook.voland.lolocum/search/"; 
+    String site = "http://handbook.voland.locum/search/"; 
     int mode = Activity.MODE_PRIVATE;   
     
 	public void onCreate(Bundle savedInstanceState) {
